@@ -8,6 +8,19 @@ export interface OutputLine {
   isError: boolean;
 }
 
+/**
+ * Normalises a single Ruby error line from the WASM runtime:
+ * - Filters out internal `-e:in 'Kernel.eval'` stack frames.
+ * - Rewrites `eval:N:in '<main>':` → `line N:` and
+ *   `eval:N:in 'method':` → `line N (in 'method'):`.
+ */
+function cleanErrorLine(line: string): string | null {
+  if (/^-e:/.test(line)) return null;
+  return line
+    .replace(/^eval:(\d+):in '<main>':\s*/, 'line $1: ')
+    .replace(/^eval:(\d+):in '([^']+)':\s*/, 'line $1 (in \'$2\'): ');
+}
+
 @Injectable({ providedIn: 'root' })
 export class RunnerService {
   private readonly destroyRef = inject(DestroyRef);
@@ -90,7 +103,10 @@ export class RunnerService {
         if (err) {
           const errLines = err.split('\n');
           if (errLines.at(-1) === '') errLines.pop();
-          errLines.forEach((text) => lines.push({ text, isError: true }));
+          errLines
+            .map(cleanErrorLine)
+            .filter((text): text is string => text !== null)
+            .forEach((text) => lines.push({ text, isError: true }));
         }
 
         resolve(lines.length > 0 ? lines : [{ text: '(no output)', isError: false }]);
