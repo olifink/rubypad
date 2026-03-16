@@ -36,13 +36,13 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build
-        # configure-pages outputs base_path as e.g. "/pypad" — Angular needs a trailing slash.
+        # configure-pages outputs base_path as e.g. "/rubypad" — Angular needs a trailing slash.
         run: npm run build -- --base-href "${{ steps.pages.outputs.base_path }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/pypad/browser
+          path: dist/rubypad/browser
 
   deploy:
     needs: build
