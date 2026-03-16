@@ -70,6 +70,7 @@ await makeIcon(192, LOGO_SVG, 'icon-maskable-192x192.png', 0.15);
 await makeIcon(512, LOGO_SVG, 'icon-maskable-512x512.png', 0.15);
 // Monochrome: white logo on transparent (Android themed icons)
 await makeMonoIcon(192, 'icon-monochrome-192x192.png');
+await makeMonoIcon(512, 'icon-monochrome-512x512.png');
 
 // favicon.ico — multi-size: 16, 32, 48px
 const icoSizes = [16, 32, 48];
