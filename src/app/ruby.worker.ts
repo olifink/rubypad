@@ -77,7 +77,7 @@ self.addEventListener('message', async (e: MessageEvent) => {
     try {
       installBuffers();
       // Stream-compile the WASM module, then hand the compiled Module to DefaultRubyVM.
-      const resp = await fetch('/rubywasm/ruby.wasm');
+      const resp = await fetch('rubywasm/ruby.wasm');
       const wasmModule = await WebAssembly.compileStreaming(resp);
       ({ vm } = await DefaultRubyVM(wasmModule));
       // Install stdout/stderr capture after VM is ready.
