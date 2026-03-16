@@ -1,0 +1,18 @@
+@if (!replService.isReady()) {
+  <div class="repl-loading" role="status" aria-live="polite">
+    <span>Loading Ruby…</span>
+  </div>
+}
+<div #terminal class="repl-terminal" aria-label="Ruby REPL terminal"></div>
+
+@if (replService.isReady()) {
+  <button
+    mat-icon-button
+    class="reset-btn"
+    aria-label="Reset REPL"
+    matTooltip="Reset REPL"
+    (click)="replService.resetRepl()"
+  >
+    <mat-icon>restart_alt</mat-icon>
+  </button>
+}

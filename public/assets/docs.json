@@ -1,0 +1,477 @@
+{
+  "puts": {
+    "signature": "puts(*objects) → nil",
+    "description": "Writes each object to stdout followed by a newline. Arrays are written one element per line.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-puts"
+  },
+  "print": {
+    "signature": "print(*objects) → nil",
+    "description": "Prints each object to stdout with no separator or newline.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-print"
+  },
+  "p": {
+    "signature": "p(*objects) → object",
+    "description": "Prints the inspect representation of each object to stdout, with newlines. Returns the objects.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-p"
+  },
+  "pp": {
+    "signature": "pp(*objects) → object",
+    "description": "Pretty-prints each object using the PrettyPrint library.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-pp"
+  },
+  "gets": {
+    "signature": "gets(sep=$/, limit=nil) → string or nil",
+    "description": "Reads and returns a line from stdin (or the next program file in ARGV).",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-gets"
+  },
+  "raise": {
+    "signature": "raise(exception, message=nil, backtrace=nil) → bottomless",
+    "description": "Raises an exception. With no arguments, re-raises the current exception.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-raise"
+  },
+  "rand": {
+    "signature": "rand(max=0) → number",
+    "description": "Returns a random number. With no argument, a Float between 0.0 and 1.0. With an integer, a random integer from 0 up to (but not including) that value.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-rand"
+  },
+  "sleep": {
+    "signature": "sleep(seconds=nil) → integer",
+    "description": "Suspends execution for the given number of seconds (may be fractional).",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-sleep"
+  },
+  "lambda": {
+    "signature": "lambda { |params| body } → Proc",
+    "description": "Creates a Proc object with strict argument checking and return semantics.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-lambda"
+  },
+  "proc": {
+    "signature": "proc { |params| body } → Proc",
+    "description": "Creates a new Proc object from the given block.",
+    "url": "https://ruby-doc.org/core/Kernel.html#method-i-proc"
+  },
+  "Array": {
+    "signature": "Array(arg) → array",
+    "description": "Converts arg to an Array: tries to_ary, then to_a, then wraps in an array.",
+    "url": "https://ruby-doc.org/core/Array.html"
+  },
+  "Hash": {
+    "signature": "Hash(arg) → hash",
+    "description": "Converts arg to a Hash. Returns {} for nil or [], calls to_hash otherwise.",
+    "url": "https://ruby-doc.org/core/Hash.html"
+  },
+  "Integer": {
+    "signature": "Integer(arg, base=0) → integer",
+    "description": "Converts arg to an Integer using strict parsing (raises on invalid input).",
+    "url": "https://ruby-doc.org/core/Integer.html"
+  },
+  "Float": {
+    "signature": "Float(arg) → float",
+    "description": "Converts arg to a Float using strict parsing.",
+    "url": "https://ruby-doc.org/core/Float.html"
+  },
+  "String": {
+    "signature": "String(arg) → string",
+    "description": "Converts arg to a String by calling to_s.",
+    "url": "https://ruby-doc.org/core/String.html"
+  },
+  "attr_accessor": {
+    "signature": "attr_accessor(*symbols) → nil",
+    "description": "Defines getter and setter methods for each named attribute.",
+    "url": "https://ruby-doc.org/core/Module.html#method-i-attr_accessor"
+  },
+  "attr_reader": {
+    "signature": "attr_reader(*symbols) → nil",
+    "description": "Defines getter methods for each named attribute.",
+    "url": "https://ruby-doc.org/core/Module.html#method-i-attr_reader"
+  },
+  "attr_writer": {
+    "signature": "attr_writer(*symbols) → nil",
+    "description": "Defines setter methods for each named attribute.",
+    "url": "https://ruby-doc.org/core/Module.html#method-i-attr_writer"
+  },
+  "initialize": {
+    "signature": "initialize(*args)",
+    "description": "Called by new to initialise a newly created object. Override in subclasses to set instance variables.",
+    "url": "https://ruby-doc.org/core/BasicObject.html#method-i-initialize"
+  },
+  "inspect": {
+    "signature": "inspect → string",
+    "description": "Returns a string representation of the object suitable for debugging.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-inspect"
+  },
+  "to_s": {
+    "signature": "to_s → string",
+    "description": "Returns a string representing the object.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-to_s"
+  },
+  "to_i": {
+    "signature": "to_i → integer",
+    "description": "Converts the object to an Integer.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-to_i"
+  },
+  "to_f": {
+    "signature": "to_f → float",
+    "description": "Converts the object to a Float.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-to_f"
+  },
+  "to_a": {
+    "signature": "to_a → array",
+    "description": "Converts the object to an Array.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-to_a"
+  },
+  "each": {
+    "signature": "each { |item| block } → self",
+    "description": "Iterates over the collection, passing each element to the block.",
+    "url": "https://ruby-doc.org/core/Enumerable.html"
+  },
+  "map": {
+    "signature": "map { |item| block } → array",
+    "description": "Returns a new array formed by applying the block to every element.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-map"
+  },
+  "select": {
+    "signature": "select { |item| block } → array",
+    "description": "Returns elements for which the block returns a truthy value.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-select"
+  },
+  "reject": {
+    "signature": "reject { |item| block } → array",
+    "description": "Returns elements for which the block returns a falsy value.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-reject"
+  },
+  "reduce": {
+    "signature": "reduce(initial=nil) { |memo, item| block } → object",
+    "description": "Reduces the collection to a single value by applying the block cumulatively.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-reduce"
+  },
+  "inject": {
+    "signature": "inject(initial=nil) { |memo, item| block } → object",
+    "description": "Alias for reduce. Combines elements with a binary operation.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-inject"
+  },
+  "flatten": {
+    "signature": "flatten(depth=nil) → array",
+    "description": "Returns a new array that is a one-dimensional flattening of self (recursively).",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-flatten"
+  },
+  "compact": {
+    "signature": "compact → array",
+    "description": "Returns a new array with all nil elements removed.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-compact"
+  },
+  "uniq": {
+    "signature": "uniq → array",
+    "description": "Returns a new array by removing duplicate values.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-uniq"
+  },
+  "sort": {
+    "signature": "sort { |a, b| block } → array",
+    "description": "Returns a sorted array. Without a block, uses the <=> operator.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-sort"
+  },
+  "sort_by": {
+    "signature": "sort_by { |item| block } → array",
+    "description": "Sorts by the value the block returns for each element.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-sort_by"
+  },
+  "first": {
+    "signature": "first(n=nil) → element or array",
+    "description": "Returns the first element, or first n elements if n is given.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-first"
+  },
+  "last": {
+    "signature": "last(n=nil) → element or array",
+    "description": "Returns the last element, or last n elements if n is given.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-last"
+  },
+  "length": {
+    "signature": "length → integer",
+    "description": "Returns the number of elements in the collection.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-length"
+  },
+  "size": {
+    "signature": "size → integer",
+    "description": "Alias for length. Returns the number of elements.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-size"
+  },
+  "empty": {
+    "signature": "empty? → true or false",
+    "description": "Returns true if the collection contains no elements.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-empty-3F"
+  },
+  "include": {
+    "signature": "include?(obj) → true or false",
+    "description": "Returns true if obj is present in the collection.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-include-3F"
+  },
+  "push": {
+    "signature": "push(*objects) → self",
+    "description": "Appends each object to the end of the array.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-push"
+  },
+  "pop": {
+    "signature": "pop(n=nil) → object or array",
+    "description": "Removes and returns the last element (or last n elements) of the array.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-pop"
+  },
+  "shift": {
+    "signature": "shift(n=nil) → object or array",
+    "description": "Removes and returns the first element (or first n elements) of the array.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-shift"
+  },
+  "unshift": {
+    "signature": "unshift(*objects) → self",
+    "description": "Prepends each object to the beginning of the array.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-unshift"
+  },
+  "join": {
+    "signature": "join(separator='') → string",
+    "description": "Returns a string created by converting each element to a string, separated by separator.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-join"
+  },
+  "split": {
+    "signature": "split(pattern=nil, limit=nil) → array",
+    "description": "Splits the string into substrings based on the delimiter, returning an array.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-split"
+  },
+  "strip": {
+    "signature": "strip → string",
+    "description": "Returns a copy of the string with leading and trailing whitespace removed.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-strip"
+  },
+  "chomp": {
+    "signature": "chomp(sep=$/) → string",
+    "description": "Returns a copy of the string with the trailing record separator removed.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-chomp"
+  },
+  "chop": {
+    "signature": "chop → string",
+    "description": "Returns a copy of the string with the last character removed.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-chop"
+  },
+  "upcase": {
+    "signature": "upcase → string",
+    "description": "Returns a copy of the string with all ASCII lowercase letters converted to uppercase.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-upcase"
+  },
+  "downcase": {
+    "signature": "downcase → string",
+    "description": "Returns a copy of the string with all ASCII uppercase letters converted to lowercase.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-downcase"
+  },
+  "gsub": {
+    "signature": "gsub(pattern, replacement) → string",
+    "description": "Returns a copy of the string with all occurrences of pattern replaced.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-gsub"
+  },
+  "sub": {
+    "signature": "sub(pattern, replacement) → string",
+    "description": "Returns a copy of the string with the first occurrence of pattern replaced.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-sub"
+  },
+  "match": {
+    "signature": "match(pattern) → MatchData or nil",
+    "description": "Converts pattern to a Regexp and returns the first match as a MatchData, or nil.",
+    "url": "https://ruby-doc.org/core/String.html#method-i-match"
+  },
+  "frozen": {
+    "signature": "frozen? → true or false",
+    "description": "Returns true if the object is frozen (immutable).",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-frozen-3F"
+  },
+  "freeze": {
+    "signature": "freeze → self",
+    "description": "Prevents further modifications to the object. Raises FrozenError if modified.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-freeze"
+  },
+  "dup": {
+    "signature": "dup → object",
+    "description": "Returns a shallow copy of the object.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-dup"
+  },
+  "clone": {
+    "signature": "clone(freeze: nil) → object",
+    "description": "Returns a copy of the object, preserving frozen state and singleton class.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-clone"
+  },
+  "respond_to": {
+    "signature": "respond_to?(symbol, include_private=false) → true or false",
+    "description": "Returns true if the object responds to the given method name.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-respond_to-3F"
+  },
+  "send": {
+    "signature": "send(symbol, *args) → object",
+    "description": "Invokes the method named by symbol, passing any additional args.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-send"
+  },
+  "tap": {
+    "signature": "tap { |obj| block } → self",
+    "description": "Yields self to the block, then returns self. Useful for method chaining and debugging.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-tap"
+  },
+  "then": {
+    "signature": "then { |obj| block } → result",
+    "description": "Yields self to the block, returning the block's return value.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-then"
+  },
+  "times": {
+    "signature": "times { |i| block } → self",
+    "description": "Iterates n times, passing integers from 0 to n-1 to the block.",
+    "url": "https://ruby-doc.org/core/Integer.html#method-i-times"
+  },
+  "upto": {
+    "signature": "upto(limit) { |i| block } → self",
+    "description": "Iterates from self up to limit, passing each integer to the block.",
+    "url": "https://ruby-doc.org/core/Integer.html#method-i-upto"
+  },
+  "downto": {
+    "signature": "downto(limit) { |i| block } → self",
+    "description": "Iterates from self down to limit, passing each integer to the block.",
+    "url": "https://ruby-doc.org/core/Integer.html#method-i-downto"
+  },
+  "abs": {
+    "signature": "abs → numeric",
+    "description": "Returns the absolute value of the number.",
+    "url": "https://ruby-doc.org/core/Numeric.html#method-i-abs"
+  },
+  "ceil": {
+    "signature": "ceil(ndigits=0) → numeric",
+    "description": "Returns the smallest number greater than or equal to self with precision ndigits.",
+    "url": "https://ruby-doc.org/core/Numeric.html#method-i-ceil"
+  },
+  "floor": {
+    "signature": "floor(ndigits=0) → numeric",
+    "description": "Returns the largest number less than or equal to self with precision ndigits.",
+    "url": "https://ruby-doc.org/core/Numeric.html#method-i-floor"
+  },
+  "round": {
+    "signature": "round(ndigits=0) → numeric",
+    "description": "Returns self rounded to ndigits decimal places.",
+    "url": "https://ruby-doc.org/core/Numeric.html#method-i-round"
+  },
+  "keys": {
+    "signature": "keys → array",
+    "description": "Returns all the keys of the hash as an array.",
+    "url": "https://ruby-doc.org/core/Hash.html#method-i-keys"
+  },
+  "values": {
+    "signature": "values → array",
+    "description": "Returns all the values of the hash as an array.",
+    "url": "https://ruby-doc.org/core/Hash.html#method-i-values"
+  },
+  "fetch": {
+    "signature": "fetch(key, default=nil) → value",
+    "description": "Returns the value for the given key. Raises KeyError if not found and no default given.",
+    "url": "https://ruby-doc.org/core/Hash.html#method-i-fetch"
+  },
+  "merge": {
+    "signature": "merge(*others) → hash",
+    "description": "Returns a new hash that is the merge of self with each other hash.",
+    "url": "https://ruby-doc.org/core/Hash.html#method-i-merge"
+  },
+  "each_with_object": {
+    "signature": "each_with_object(obj) { |item, obj| block } → obj",
+    "description": "Iterates over the collection, passing each element and the given object to the block.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-each_with_object"
+  },
+  "each_with_index": {
+    "signature": "each_with_index { |item, index| block } → self",
+    "description": "Iterates over the collection, passing each element and its index to the block.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-each_with_index"
+  },
+  "zip": {
+    "signature": "zip(*arrays) → array of arrays",
+    "description": "Merges self with successive elements from each argument array.",
+    "url": "https://ruby-doc.org/core/Array.html#method-i-zip"
+  },
+  "min": {
+    "signature": "min { |a, b| block } → element",
+    "description": "Returns the minimum element of the collection.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-min"
+  },
+  "max": {
+    "signature": "max { |a, b| block } → element",
+    "description": "Returns the maximum element of the collection.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-max"
+  },
+  "count": {
+    "signature": "count { |item| block } → integer",
+    "description": "Returns the count of items matching the block condition (or total count without a block).",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-count"
+  },
+  "any": {
+    "signature": "any? { |item| block } → true or false",
+    "description": "Returns true if the block returns truthy for any element.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-any-3F"
+  },
+  "all": {
+    "signature": "all? { |item| block } → true or false",
+    "description": "Returns true if the block returns truthy for all elements.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-all-3F"
+  },
+  "none": {
+    "signature": "none? { |item| block } → true or false",
+    "description": "Returns true if the block returns falsy for all elements.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-none-3F"
+  },
+  "flat_map": {
+    "signature": "flat_map { |item| block } → array",
+    "description": "Maps and flattens one level: returns a new array from block results concatenated together.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-flat_map"
+  },
+  "group_by": {
+    "signature": "group_by { |item| block } → hash",
+    "description": "Groups elements by the return value of the block, returning a hash of arrays.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-group_by"
+  },
+  "chunk": {
+    "signature": "chunk { |item| block } → enumerator",
+    "description": "Enumerates elements, grouping consecutive elements with the same block return value.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-chunk"
+  },
+  "take": {
+    "signature": "take(n) → array",
+    "description": "Returns the first n elements of the collection.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-take"
+  },
+  "drop": {
+    "signature": "drop(n) → array",
+    "description": "Returns all elements after the first n.",
+    "url": "https://ruby-doc.org/core/Enumerable.html#method-i-drop"
+  },
+  "new": {
+    "signature": "ClassName.new(*args) → object",
+    "description": "Allocates and initializes a new object of the class, calling initialize with args.",
+    "url": "https://ruby-doc.org/core/Class.html#method-i-new"
+  },
+  "object_id": {
+    "signature": "object_id → integer",
+    "description": "Returns an integer identifier for the object, unique for the duration of the program.",
+    "url": "https://ruby-doc.org/core/BasicObject.html#method-i-object_id"
+  },
+  "class": {
+    "signature": "class → class",
+    "description": "Returns the class of the object.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-class"
+  },
+  "is_a": {
+    "signature": "is_a?(class) → true or false",
+    "description": "Returns true if the object is an instance of class or its subclass.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-is_a-3F"
+  },
+  "kind_of": {
+    "signature": "kind_of?(class) → true or false",
+    "description": "Alias for is_a?. Returns true if the object is an instance of class or its subclass.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-kind_of-3F"
+  },
+  "nil": {
+    "signature": "nil? → true or false",
+    "description": "Returns true only if the object is nil.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-nil-3F"
+  },
+  "freeze": {
+    "signature": "freeze → self",
+    "description": "Makes the object immutable. Attempting to modify a frozen object raises FrozenError.",
+    "url": "https://ruby-doc.org/core/Object.html#method-i-freeze"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /d/projects/my/rubypad -type d -name node_modules -prune -o -type d -print | grep -E \"^/d/projects/my/rubypad/[^/]+$|^/d/projects/my/rubypad/src|^/d/projects/my/rubypad/public|^/d/projects/my/rubypad/scripts\" | head -30)",
+      "WebSearch",
+      "WebFetch(domain:ruby.github.io)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm info:*)",
+      "Bash(npm search:*)",
+      "Bash(npm pack:*)",
+      "Bash(npm view:*)",
+      "Bash(cd \"D:/projects/my/rubypad\" && npm install 2>&1 | tail -30)",
+      "Bash(grep \"DefaultRubyVM\" \"D:/projects/my/rubypad/node_modules/@ruby/wasm-wasi/dist/esm/\"*.js)",
+      "Bash(cd \"D:/projects/my/rubypad\" && npx ng build --configuration=development 2>&1 | head -80)",
+      "Bash(cd \"D:/projects/my/rubypad\" && npx ng build 2>&1 | tail -30)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_pages",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_network_requests",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__get_network_request"
+    ]
+  }
+}

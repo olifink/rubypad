@@ -1,0 +1,73 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto-mono/400.css';
+@import '@fontsource/roboto-mono/500.css';
+@import '@fontsource/material-icons/index.css';
+
+/* Required class rules omitted by fontsource */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --font-mono: 'Roboto Mono', 'Courier New', monospace;
+}
+
+/* Prevent the bounce/rubber-band overscroll effect in PWA mode (Edge, Chrome). */
+html,
+body {
+  overscroll-behavior: none;
+}
+
+/* Ensure Angular Material dialogs don't overlap with the virtual keyboard on mobile. */
+.cdk-overlay-container {
+  /* Use dvh to ensure the container shrinks when the keyboard appears. */
+  height: 100dvh !important;
+  /* Use a fallback for browsers that don't support dvh well in fixed containers. */
+  max-height: calc(100% - env(keyboard-inset-height, 0px));
+}
+
+.cdk-global-overlay-wrapper {
+  /* Ensure the wrapper follows the container height for correct vertical centering. */
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  /* Add padding-bottom as a second layer of protection for PWA mode. */
+  padding-bottom: env(keyboard-inset-height, 0px);
+  box-sizing: border-box !important;
+}
+
+/* Material 3 dialog containers should be centered in the remaining viewport. */
+.mat-mdc-dialog-container {
+  /* Use dvh to ensure the dialog itself doesn't exceed the visible area. */
+  max-height: calc(96dvh - env(keyboard-inset-height, 0px)) !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+}
+
+.mat-mdc-dialog-content {
+  /* Ensure content remains scrollable if the keyboard takes up too much space. */
+  flex: 1;
+  overflow-y: auto !important;
+  max-height: none !important;
+}
