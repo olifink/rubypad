@@ -1,122 +1,208 @@
-# MicroPython Cheat Sheet
+# Ruby Cheat Sheet
 
 ## Variables & Types
-```python
-x = 42          # int
-pi = 3.14       # float
-name = "PyPad"  # str
-flag = True     # bool
-nothing = None  # NoneType
-lst = [1, 2]   t = (1,)   s = {1, 2}
+```ruby
+x = 42          # Integer
+pi = 3.14       # Float
+name = "RubyPad" # String
+flag = true     # TrueClass
+nothing = nil   # NilClass
+sym = :hello    # Symbol
 ```
 
 ## Strings
-```python
-f"Hello {name}, score: {x:.2f}"
-s.upper()   s.lower()   s.strip()
-s.split(",")   ",".join(lst)
-s[0]   s[-1]   s[1:4]   s[::-1]
-"py" in s   s.startswith("P")
+```ruby
+"Hello, #{name}!"          # interpolation
+'no #{interpolation} here' # single-quoted
+s.upcase   s.downcase   s.strip   s.chomp
+s.split(",")   [1,2].join(", ")
+s[0]   s[-1]   s[1..3]   s.reverse
+s.include?("Ruby")   s.start_with?("R")
+s.length   s.chars   s.gsub(/\s+/, "_")
 ```
 
 ## Conditions
-```python
-if x > 0:
-    print("positive")
-elif x == 0:
-    print("zero")
-else:
-    print("negative")
+```ruby
+if x > 0
+  puts "positive"
+elsif x == 0
+  puts "zero"
+else
+  puts "negative"
+end
 
-val = "yes" if x > 0 else "no"
+puts x > 0 ? "pos" : "non-pos"   # ternary
+puts "ok" if x > 0               # inline if
+puts "bad" unless x > 0          # inline unless
+
+case x
+when 1..9   then puts "single digit"
+when 10, 20 then puts "10 or 20"
+else             puts "other"
+end
 ```
 
 ## Loops
-```python
-for i in range(5):          # 0–4
-for i in range(2, 10, 2):   # step
-for i, v in enumerate(lst):
-for a, b in zip(l1, l2):
-while cond:
-    if done: break
-    if skip: continue
+```ruby
+5.times { |i| puts i }           # 0–4
+(1..5).each { |i| puts i }       # 1–5
+(0..8).step(2) { |i| puts i }    # 0,2,4,6,8
+
+arr.each { |v| puts v }
+arr.each_with_index { |v, i| puts "#{i}: #{v}" }
+
+while cond
+  break if done
+  next if skip
+end
+
+loop do
+  break if done
+end
 ```
 
-## Lists & Tuples
-```python
-lst = [3, 1, 2]
-lst.append(4)   lst.pop()
-lst.insert(0, 9)   lst.remove(1)
-lst.sort()   sorted(lst, reverse=True)
-lst[1:3]   lst[::-1]   lst * 2
-t = (1, 2, 3)   a, b, *rest = t
+## Arrays
+```ruby
+arr = [3, 1, 2]
+arr.push(4)    arr.pop
+arr.unshift(0) arr.shift
+arr << 5
+arr.sort   arr.sort.reverse
+arr[1..3]  arr.first(2)  arr.last(2)
+arr.flatten   arr.compact   arr.uniq
+arr.include?(3)   arr.count   arr.sum
+arr.min   arr.max   arr.sample
+a, b, *rest = arr   # destructuring
 ```
 
-## Dicts & Sets
-```python
-d = {"a": 1, "b": 2}
-d["c"] = 3   del d["a"]
-d.get("x", 0)   "a" in d
-d.keys()   d.values()   d.items()
-s = {1, 2, 3}
-s.add(4)   s & t   s | t   s - t
+## Hashes
+```ruby
+h = { a: 1, b: 2 }          # symbol keys
+h = { "a" => 1, "b" => 2 }  # string keys
+h[:c] = 3   h.delete(:a)
+h.fetch(:x, 0)               # default value
+h.key?(:b)   h.value?(2)
+h.keys   h.values   h.to_a
+h.each { |k, v| puts "#{k}: #{v}" }
+h.map { |k, v| [k, v * 2] }.to_h
+h.select { |k, v| v > 1 }
+h.merge({ d: 4 })
 ```
 
-## Comprehensions
-```python
-[x**2 for x in range(10)]
-[x for x in lst if x > 0]
-{k: v * 2 for k, v in d.items()}
-{x % 3 for x in range(9)}
-(x * 2 for x in lst)  # generator
+## Enumerables
+```ruby
+arr.map { |x| x ** 2 }
+arr.select { |x| x > 0 }
+arr.reject { |x| x > 0 }
+arr.reduce(0) { |sum, x| sum + x }
+arr.reduce(:+)                    # shorthand
+arr.find { |x| x > 2 }
+arr.all? { |x| x > 0 }
+arr.any? { |x| x > 0 }
+arr.none? { |x| x < 0 }
+arr.flat_map { |x| [x, x * 2] }
+arr.zip([4, 5, 6])
+arr.each_slice(2).to_a
+arr.group_by { |x| x % 2 == 0 ? :even : :odd }
 ```
 
-## Functions
-```python
-def greet(name, greeting="Hi"):
-    """Docstring."""
-    return f"{greeting}, {name}!"
+## Functions (Methods)
+```ruby
+def greet(name, greeting: "Hello")
+  "#{greeting}, #{name}!"
+end
 
-def fn(*args, **kwargs): ...
-double = lambda x: x * 2
+greet("world")
+greet("world", greeting: "Hi")
+
+def variadic(*args, **opts)
+  args.inspect
+end
+
+double = ->(x) { x * 2 }   # lambda
+double.call(5)              # => 10
+double.(5)                  # shorthand
 ```
 
-## Classes
-```python
-class Animal:
-    def __init__(self, name):
-        self.name = name
-    def speak(self):
-        return "..."
+## Classes & Modules
+```ruby
+class Animal
+  attr_accessor :name
 
-class Dog(Animal):
-    def speak(self):
-        return f"{self.name}: Woof!"
+  def initialize(name)
+    @name = name
+  end
+
+  def speak
+    "..."
+  end
+
+  def to_s
+    "Animal(#{@name})"
+  end
+end
+
+class Dog < Animal
+  def speak
+    "#{@name}: Woof!"
+  end
+end
+
+module Greetable
+  def greet
+    "Hi, I'm #{name}"
+  end
+end
+
+class Person
+  include Greetable
+  attr_reader :name
+  def initialize(name) = @name = name
+end
 ```
 
 ## Error Handling
-```python
-try:
-    result = 10 / x
-except ZeroDivisionError as e:
-    print(f"Error: {e}")
-except (TypeError, ValueError):
-    print("Bad input")
-else:
-    print("no error")
-finally:
-    print("always runs")
-raise ValueError("bad value")
+```ruby
+begin
+  result = 10 / x
+rescue ZeroDivisionError => e
+  puts "Error: #{e.message}"
+rescue TypeError, ArgumentError
+  puts "Bad input"
+else
+  puts "no error"
+ensure
+  puts "always runs"
+end
+
+raise ArgumentError, "bad value"
+raise unless x > 0        # inline guard
 ```
 
 ## Useful Built-ins
-```python
-len(x)   type(x)   isinstance(x, int)
-range(start, stop, step)
-sorted(lst)   reversed(lst)
-map(fn, lst)   filter(fn, lst)
-any(x > 0 for x in lst)
-all(x > 0 for x in lst)
-sum(lst)   min(lst)   max(lst)
-abs(x)   round(x, 2)   int(x)
+```ruby
+x.class   x.is_a?(Integer)   x.respond_to?(:to_s)
+x.nil?    x.zero?    x.even?    x.odd?
+x.to_s    x.to_i     x.to_f     x.to_a
+x.freeze  x.frozen?  x.dup
+puts x    print x    p x        pp x
+rand      rand(10)   [1,2,3].sample
+Math::PI  Math.sqrt(2)  Math.log(100, 10)
+```
+
+## Symbols & Ranges
+```ruby
+:foo.to_s          # "foo"
+"foo".to_sym       # :foo
+(1..10).to_a       # [1..10] inclusive
+(1...10).to_a      # [1..9]  exclusive
+(1..10).cover?(5)  # true
+("a".."e").to_a    # ["a","b","c","d","e"]
+```
+
+## String Formatting
+```ruby
+"%d items at $%.2f each" % [3, 4.5]
+format("%.4f", Math::PI)
+sprintf("%08b", 42)   # binary with padding
 ```
