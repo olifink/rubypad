@@ -102,13 +102,19 @@ self.addEventListener('message', async (e: MessageEvent) => {
   } else if (type === 'repl-input') {
     outBuf.length = 0;
     errBuf.length = 0;
+    let val: string | undefined;
     try {
-      vm!.eval(code!);
+      const result = vm!.eval(code!);
+      try {
+        val = result.call('inspect').toString();
+      } catch {
+        // inspect failed — omit the => line
+      }
     } catch (err: unknown) {
       errBuf.push(err instanceof Error ? err.message : String(err));
     }
     const { out, err } = collectOutput();
-    postMessage({ type: 'repl-output', out, err });
+    postMessage({ type: 'repl-output', out, err, val });
   } else if (type === 'reset') {
     outBuf.length = 0;
     errBuf.length = 0;

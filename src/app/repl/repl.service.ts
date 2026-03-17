@@ -72,11 +72,12 @@ export class ReplService {
     // Route worker repl-output messages to the terminal.
     this.runner.replOutput$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ out, err }) => {
+      .subscribe(({ out, err, val }) => {
         this.waitingForOutput = false;
         if (this.terminal) {
           if (out) this._writeLines(out);
           if (err) this._writeLines(err, true);
+          if (val !== undefined) this._writeLines(`=> ${val}`);
           this._writePrompt();
         }
       });

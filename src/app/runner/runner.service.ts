@@ -33,7 +33,7 @@ export class RunnerService {
   private msgCounter = 0;
 
   /** Observable that emits repl-output messages for ReplService to subscribe to. */
-  readonly replOutput$ = new Subject<{ out: string; err: string }>();
+  readonly replOutput$ = new Subject<{ out: string; err: string; val?: string }>();
   /** Observable that emits reset-done messages for ReplService to subscribe to. */
   readonly resetDone$ = new Subject<void>();
 
@@ -59,7 +59,8 @@ export class RunnerService {
           resolve({ out: out ?? '', err: err ?? '' });
         }
       } else if (type === 'repl-output') {
-        this.replOutput$.next({ out: out ?? '', err: err ?? '' });
+        const { val } = e.data as { val?: string };
+        this.replOutput$.next({ out: out ?? '', err: err ?? '', val });
       } else if (type === 'reset-done') {
         this.resetDone$.next();
       }
