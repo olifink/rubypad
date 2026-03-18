@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { AiService } from '../ai/ai.service';
 
 export interface NewFileDialogData {
   title: string;
@@ -27,24 +28,26 @@ export interface NewFileDialogData {
     <mat-dialog-content>
       <p>{{ data.message }}</p>
       
-      <div class="ai-section">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>AI Prompt (optional)</mat-label>
-          <textarea
-            matInput
-            rows="3"
-            [ngModel]="prompt()"
-            (ngModelChange)="prompt.set($event)"
-            placeholder="e.g., Generate a simple web server using MicroPython sockets"></textarea>
-          <mat-icon matPrefix>auto_awesome</mat-icon>
-          <mat-hint>Leave empty to start with a blank file</mat-hint>
-        </mat-form-field>
-      </div>
+      @if (aiService.hasApiKey()) {
+        <div class="ai-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>AI Prompt (optional)</mat-label>
+            <textarea
+              matInput
+              rows="3"
+              [ngModel]="prompt()"
+              (ngModelChange)="prompt.set($event)"
+              placeholder="e.g., Generate a simple web server using MicroPython sockets"></textarea>
+            <mat-icon matPrefix>auto_awesome</mat-icon>
+            <mat-hint>Leave empty to start with a blank file</mat-hint>
+          </mat-form-field>
+        </div>
+      }
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="onCancel()">Cancel</button>
       <button mat-flat-button color="primary" (click)="onConfirm()">
-        {{ prompt().trim() ? 'Generate and Create' : 'Create Blank' }}
+        {{ aiService.hasApiKey() && prompt().trim() ? 'Generate and Create' : 'Create Blank' }}
       </button>
     </mat-dialog-actions>
   `,
@@ -65,6 +68,7 @@ export interface NewFileDialogData {
 export class NewFileDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<NewFileDialogComponent>);
   protected readonly data = inject<NewFileDialogData>(MAT_DIALOG_DATA);
+  protected readonly aiService = inject(AiService);
   protected readonly prompt = signal('');
 
   protected onCancel(): void {
