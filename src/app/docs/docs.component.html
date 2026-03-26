@@ -1,32 +1,29 @@
 <div class="docs-panel">
   @if (!docsService.isLoaded()) {
-    <p class="docs-placeholder">Loading documentation…</p>
+  <p class="docs-placeholder">{{ i18n.t('loadingDocumentation') }}</p>
   } @else if (!showCheatSheet() && docEntry()) {
-    <div class="docs-content">
-      <pre class="docs-signature">{{ docEntry()!.signature }}</pre>
-      <p class="docs-description">{{ docEntry()!.description }}</p>
-      <a class="docs-link" [href]="docEntry()!.url" target="_blank" rel="noopener noreferrer">
-        Open official docs ↗
-      </a>
-    </div>
+  <div class="docs-content">
+    <pre class="docs-signature">{{ docEntry()!.signature }}</pre>
+    <p class="docs-description">{{ docEntry()!.description }}</p>
+    <a class="docs-link" [href]="docEntry()!.url" target="_blank" rel="noopener noreferrer">
+      {{ i18n.t('openOfficialDocs') }}
+    </a>
+  </div>
   } @else if (!showCheatSheet() && currentSymbol()) {
-    <p class="docs-empty">
-      No documentation available for <code class="docs-code">{{ currentSymbol() }}</code>
-    </p>
+  <p class="docs-empty">
+    {{ i18n.t('noDocumentationFor') }} <code class="docs-code">{{ currentSymbol() }}</code>
+  </p>
   } @else {
-    <p class="docs-hint">Move the cursor over a symbol to see documentation.</p>
-    <app-markdown src="assets/cheat-sheet.md" />
+  <p class="docs-hint">{{ i18n.t('moveCursorForDocs') }}</p>
+  <app-markdown [src]="cheatsheetSrc()" />
   }
 </div>
 
 @if (docsService.isLoaded() && (docEntry() || currentSymbol())) {
-  <button
-    mat-icon-button
-    class="cheatsheet-btn"
-    [attr.aria-label]="showCheatSheet() ? 'Back to symbol docs' : 'Show cheat sheet'"
-    [matTooltip]="showCheatSheet() ? 'Back to symbol docs' : 'Show cheat sheet'"
-    (click)="showCheatSheet.set(!showCheatSheet())"
-  >
-    <mat-icon>{{ showCheatSheet() ? 'info' : 'menu_book' }}</mat-icon>
-  </button>
+<button mat-icon-button class="cheatsheet-btn"
+  [attr.aria-label]="showCheatSheet() ? i18n.t('backToSymbolDocs') : i18n.t('showCheatSheet')"
+  [matTooltip]="showCheatSheet() ? i18n.t('backToSymbolDocs') : i18n.t('showCheatSheet')"
+  (click)="showCheatSheet.set(!showCheatSheet())">
+  <mat-icon>{{ showCheatSheet() ? 'info' : 'menu_book' }}</mat-icon>
+</button>
 }

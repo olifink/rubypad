@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from '../storage/storage.service';
 import { AiService } from '../ai/ai.service';
+import { I18nService } from '../i18n/i18n.service';
 
 @Component({
   selector: 'app-ai-settings-dialog',
@@ -20,34 +21,34 @@ import { AiService } from '../ai/ai.service';
     FormsModule,
   ],
   template: `
-    <h2 mat-dialog-title>AI Settings</h2>
+    <h2 mat-dialog-title>{{ i18n.t('aiSettingsTitle') }}</h2>
     <mat-dialog-content>
-      <p>Enter your Gemini API Key to enable AI features like code explanation and generation.</p>
+      <p>{{ i18n.t('enterGeminiApiKey') }}</p>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Gemini API Key</mat-label>
+        <mat-label>{{ i18n.t('geminiApiKey') }}</mat-label>
         <input
           matInput
           [type]="hideKey() ? 'password' : 'text'"
           [ngModel]="apiKey()"
           (ngModelChange)="apiKey.set($event)"
-          placeholder="Enter your API key" />
+          [placeholder]="i18n.t('enterApiKey')" />
         <button
           mat-icon-button
           matSuffix
           (click)="hideKey.set(!hideKey())"
-          [attr.aria-label]="hideKey() ? 'Show API key' : 'Hide API key'"
+          [attr.aria-label]="hideKey() ? i18n.t('showApiKey') : i18n.t('hideApiKey')"
           [attr.aria-pressed]="!hideKey()">
           <mat-icon>{{ hideKey() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
       <p class="hint">
-        Your API key is stored locally in your browser and is never sent to our servers.
-        You can get a free API key from the <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>.
+        {{ i18n.t('apiKeyStoredLocally') }}
+        <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>.
       </p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancel</button>
-      <button mat-flat-button color="primary" (click)="onSave()">Save</button>
+      <button mat-button (click)="onCancel()">{{ i18n.t('cancel') }}</button>
+      <button mat-flat-button color="primary" (click)="onSave()">{{ i18n.t('save') }}</button>
     </mat-dialog-actions>
   `,
   styles: `
@@ -73,6 +74,7 @@ export class AiSettingsDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<AiSettingsDialogComponent>);
   private readonly storage = inject(StorageService);
   private readonly aiService = inject(AiService);
+  protected readonly i18n = inject(I18nService);
 
   protected readonly apiKey = signal(this.storage.loadApiKey() ?? '');
   protected readonly hideKey = signal(true);

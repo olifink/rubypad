@@ -1,8 +1,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav class="app-sidenav" [opened]="sidenavOpen()" (openedChange)="sidenavOpen.set($event)" mode="over">
     <div class="sidenav-header">
-      <span class="sidenav-title">Settings</span>
-      <button mat-icon-button (click)="sidenavOpen.set(false)" aria-label="Close settings">
+      <span class="sidenav-title">{{ i18n.t('settings') }}</span>
+      <button mat-icon-button (click)="sidenavOpen.set(false)" [attr.aria-label]="i18n.t('closeSettings')">
         <mat-icon>close</mat-icon>
       </button>
     </div>
@@ -11,29 +11,29 @@
 
     <div class="sidenav-body">
       <div class="sidenav-section">
-        <div class="sidenav-section-label">File</div>
+        <div class="sidenav-section-label">{{ i18n.t('file') }}</div>
         <button mat-button class="sidenav-action" (click)="newFile()">
           <mat-icon>add</mat-icon>
-          New file
+          {{ i18n.t('newFile') }}
         </button>
         <button mat-button class="sidenav-action" (click)="openFile()" matTooltip="Ctrl+O">
           <mat-icon>folder_open</mat-icon>
-          Open file
+          {{ i18n.t('openFile') }}
         </button>
         <button mat-button class="sidenav-action" (click)="downloadCode()">
           <mat-icon>download</mat-icon>
-          Download file
+          {{ i18n.t('downloadFile') }}
         </button>
         <button mat-button class="sidenav-action" (click)="shareCode(); sidenavOpen.set(false)">
           <mat-icon>share</mat-icon>
-          Share
+          {{ i18n.t('share') }}
         </button>
       </div>
 
       <mat-divider />
 
       <div class="sidenav-section">
-        <div class="sidenav-section-label">Settings</div>
+        <div class="sidenav-section-label">{{ i18n.t('settings') }}</div>
         <button mat-button class="sidenav-action" (click)="openAiSettings()">
           <mat-icon>smart_toy</mat-icon>
           AI
@@ -42,20 +42,30 @@
 
       <div class="sidenav-section sidenav-section--bottom">
         <mat-divider />
-        <div class="sidenav-section-label">Appearance</div>
+        <div class="sidenav-section-label">{{ i18n.t('appearance') }}</div>
         <mat-button-toggle-group class="sidenav-toggle-group" [value]="theme.mode()"
-          (change)="theme.setMode($event.value)" hideSingleSelectionIndicator aria-label="Theme">
-          <mat-button-toggle value="light" aria-label="Light mode">
+          (change)="theme.setMode($event.value)" hideSingleSelectionIndicator [attr.aria-label]="i18n.t('theme')">
+          <mat-button-toggle value="light" [attr.aria-label]="i18n.t('light')">
             <mat-icon>light_mode</mat-icon>
-            <span class="toggle-label">Light</span>
+            <span class="toggle-label">{{ i18n.t('light') }}</span>
           </mat-button-toggle>
-          <mat-button-toggle value="dark" aria-label="Dark mode">
+          <mat-button-toggle value="dark" [attr.aria-label]="i18n.t('dark')">
             <mat-icon>dark_mode</mat-icon>
-            <span class="toggle-label">Dark</span>
+            <span class="toggle-label">{{ i18n.t('dark') }}</span>
           </mat-button-toggle>
-          <mat-button-toggle value="system" aria-label="System theme">
+          <mat-button-toggle value="system" [attr.aria-label]="i18n.t('system')">
             <mat-icon>brightness_auto</mat-icon>
-            <span class="toggle-label">System</span>
+            <span class="toggle-label">{{ i18n.t('system') }}</span>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-button-toggle-group class="sidenav-toggle-group" [value]="i18n.language()"
+          (change)="setLanguage($event.value)" hideSingleSelectionIndicator [attr.aria-label]="i18n.t('language')">
+          <mat-button-toggle value="en" [attr.aria-label]="i18n.t('languageEnglish')">
+            <span class="toggle-label">{{ i18n.t('languageEnglish') }}</span>
+          </mat-button-toggle>
+          <mat-button-toggle value="jp" [attr.aria-label]="i18n.t('languageJapanese')">
+            <span class="toggle-label">{{ i18n.t('languageJapanese') }}</span>
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
@@ -63,11 +73,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <input #fileInput type="file" accept=".rb,.txt" class="visually-hidden" (change)="onFileSelected($event)">
+    <input #fileInput type="file" accept=".rb,.txt" class="visually-hidden" aria-label="Open Ruby file"
+      (change)="onFileSelected($event)">
     <div class="app-content">
       <header>
         <mat-toolbar class="app-toolbar">
-          <button mat-icon-button (click)="sidenavOpen.set(true)" aria-label="Open settings">
+          <button mat-icon-button (click)="sidenavOpen.set(true)" [attr.aria-label]="i18n.t('openSettings')">
             <mat-icon>menu</mat-icon>
           </button>
           <span class="app-title">RubyPad</span>
@@ -75,21 +86,23 @@
 
           @if (aiService.hasApiKey()) {
           <button mat-icon-button (click)="openAiPrompt()"
-            [matTooltip]="selection() ? 'AI Fix (Ctrl+\\)' : 'AI Insert (Ctrl+\\)'"
-            [attr.aria-label]="selection() ? 'AI Fix' : 'AI Insert'">
+            [matTooltip]="selection() ? i18n.t('aiFixTooltip') : i18n.t('aiInsertTooltip')"
+            [attr.aria-label]="selection() ? i18n.t('aiFixAria') : i18n.t('aiInsertAria')">
             <mat-icon>auto_awesome</mat-icon>
           </button>
           }
 
           <mat-button-toggle-group class="layout-toggle" [value]="layout()" (change)="setLayout($event.value)"
-            hideSingleSelectionIndicator aria-label="Layout mode">
-            <mat-button-toggle value="editor" matTooltip="Editor only" aria-label="Editor only">
+            hideSingleSelectionIndicator [attr.aria-label]="i18n.t('layoutMode')">
+            <mat-button-toggle value="editor" [matTooltip]="i18n.t('editorOnly')"
+              [attr.aria-label]="i18n.t('editorOnly')">
               <mat-icon>code</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="both" matTooltip="Editor and panel" aria-label="Editor and panel">
+            <mat-button-toggle value="both" [matTooltip]="i18n.t('editorAndPanel')"
+              [attr.aria-label]="i18n.t('editorAndPanel')">
               <mat-icon>view_agenda</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="panel" matTooltip="Panel only" aria-label="Panel only">
+            <mat-button-toggle value="panel" [matTooltip]="i18n.t('panelOnly')" [attr.aria-label]="i18n.t('panelOnly')">
               <mat-icon>dvr</mat-icon>
             </mat-button-toggle>
           </mat-button-toggle-group>
@@ -97,24 +110,24 @@
       </header>
 
       <main class="app-workspace" [style.--split-ratio]="splitRatio()" #workspace>
-        <section class="editor-pane" [style.flex]="splitRatio()" aria-label="Code editor">
+        <section class="editor-pane" [style.flex]="splitRatio()" [attr.aria-label]="i18n.t('codeEditor')">
           <app-editor [initialCode]="initialCode" [isDark]="theme.effectiveIsDark()" (codeChange)="onCodeChange($event)"
             (cursorChange)="onCursorChange($event)" (selectionChange)="onSelectionChange($event)" />
         </section>
 
-        <div class="pane-divider" role="separator" aria-orientation="horizontal" aria-label="Resize panels"
-          (pointerdown)="onDividerPointerDown($event)"></div>
+        <div class="pane-divider" role="separator" aria-orientation="horizontal"
+          [attr.aria-label]="i18n.t('resizePanels')" (pointerdown)="onDividerPointerDown($event)"></div>
 
-        <section class="console-pane" [style.flex]="1 - splitRatio()" aria-label="Output panel">
+        <section class="console-pane" [style.flex]="1 - splitRatio()" [attr.aria-label]="i18n.t('outputPanel')">
           <mat-tab-group class="panel-tabs" animationDuration="150ms" [selectedIndex]="activePanelTabIndex()"
             (selectedIndexChange)="onPanelTabChange($event)">
-            <mat-tab label="Output">
+            <mat-tab [label]="i18n.t('tabOutput')">
               <app-console [lines]="outputLines()" (clear)="clearOutput()" />
             </mat-tab>
-            <mat-tab label="REPL">
+            <mat-tab [label]="i18n.t('tabRepl')">
               <app-repl [isDark]="theme.effectiveIsDark()" />
             </mat-tab>
-            <mat-tab label="Docs">
+            <mat-tab [label]="i18n.t('tabDocs')">
               <app-docs [cursorInfo]="cursorInfo()" />
             </mat-tab>
           </mat-tab-group>
@@ -123,9 +136,10 @@
 
       <button mat-fab class="run-fab" (click)="runCode()"
         [disabled]="!runner.isReady() || aiService.isGenerating() || isRunning()"
-        [matTooltip]="aiService.isGenerating() ? 'AI is generating code...' : (isRunning() ? 'Running…' : (runner.isReady() ? 'Run (Ctrl+R)' : 'Loading Ruby…'))"
-        aria-label="Run Ruby code">
-        <mat-icon aria-hidden="true">{{ aiService.isGenerating() ? 'auto_awesome' : (isRunning() ? 'hourglass_empty' : (runner.isReady() ? 'play_arrow' : 'hourglass_empty')) }}</mat-icon>
+        [matTooltip]="aiService.isGenerating() ? i18n.t('aiGenerating') : (isRunning() ? i18n.t('running') : (runner.isReady() ? i18n.t('run') : i18n.t('loadingRuby')))"
+        aria-label="Run Ruby code" [attr.title]="i18n.t('runRubyCode')">
+        <mat-icon aria-hidden="true">{{ aiService.isGenerating() ? 'auto_awesome' : (isRunning() ? 'hourglass_empty' :
+          (runner.isReady() ? 'play_arrow' : 'hourglass_empty')) }}</mat-icon>
       </button>
     </div>
   </mat-sidenav-content>

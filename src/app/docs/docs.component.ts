@@ -8,6 +8,7 @@ import { DocumentationService } from './docs.service';
 import { EditorContextService } from './editor-context.service';
 import type { CursorInfo } from '../editor/editor';
 import { MarkdownComponent } from '../markdown/markdown.component';
+import { I18nService } from '../i18n/i18n.service';
 
 @Component({
   selector: 'app-docs',
@@ -21,6 +22,7 @@ export class DocumentationComponent {
 
   protected readonly docsService = inject(DocumentationService);
   private readonly editorContext = inject(EditorContextService);
+  protected readonly i18n = inject(I18nService);
 
   private readonly debouncedCursor = toSignal(
     toObservable(this.cursorInfo).pipe(debounceTime(300)),
@@ -39,6 +41,12 @@ export class DocumentationComponent {
   });
 
   protected readonly showCheatSheet = signal(false);
+
+  protected readonly cheatsheetSrc = computed(() => {
+    return this.i18n.language() === 'jp'
+      ? 'assets/cheat-sheet-jp.md'
+      : 'assets/cheat-sheet-en.md';
+  });
 
   constructor() {
     // Auto-show symbol docs as soon as a doc entry becomes available.

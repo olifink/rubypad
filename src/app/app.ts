@@ -38,6 +38,7 @@ import { AiService } from './ai/ai.service';
 import { NewFileDialogComponent } from './new-file-dialog/new-file-dialog';
 import { AiPromptDialogComponent } from './ai-prompt-dialog/ai-prompt-dialog';
 import type { AiPromptDialogData } from './ai-prompt-dialog/ai-prompt-dialog';
+import { I18nService, type Language } from './i18n/i18n.service';
 
 const DEFAULT_CODE = `# Welcome to RubyPad!
 puts "Hello, RubyPad!"
@@ -92,6 +93,7 @@ export class App {
   protected readonly replService = inject(ReplService);
   protected readonly theme = inject(ThemeService);
   protected readonly aiService = inject(AiService);
+  protected readonly i18n = inject(I18nService);
   private readonly _vk = inject(VirtualKeyboardService);
 
   private readonly workspaceRef = viewChild.required<ElementRef<HTMLElement>>('workspace');
@@ -117,6 +119,10 @@ export class App {
   protected readonly selection = signal<SelectionInfo | null>(null);
   protected readonly isRunning = signal(false);
   private readonly currentCode = signal(this.initialCode);
+
+  protected setLanguage(language: Language): void {
+    this.i18n.setLanguage(language);
+  }
 
   constructor() {
     // Strip ?s= after Angular's router has completed its initial navigation.
@@ -193,8 +199,8 @@ export class App {
     this.dialog
       .open(NewFileDialogComponent, {
         data: {
-          title: 'New file',
-          message: 'Your current code will be replaced.',
+          title: this.i18n.t('newFileTitle'),
+          message: this.i18n.t('newFileReplaceMessage'),
         },
         width: '480px',
       })
@@ -211,9 +217,9 @@ export class App {
           } catch (err) {
             this.dialog.open(ConfirmDialogComponent, {
               data: {
-                title: 'AI Generation Failed',
-                message: err instanceof Error ? err.message : 'An unknown error occurred',
-                confirmLabel: 'OK',
+                title: this.i18n.t('aiGenerationFailed'),
+                message: err instanceof Error ? err.message : this.i18n.t('unknownError'),
+                confirmLabel: this.i18n.t('ok'),
               },
             });
           }
@@ -286,9 +292,9 @@ export class App {
         } catch (err) {
           this.dialog.open(ConfirmDialogComponent, {
             data: {
-              title: isFixMode ? 'AI Fix Failed' : 'AI Insertion Failed',
-              message: err instanceof Error ? err.message : 'An unknown error occurred',
-              confirmLabel: 'OK',
+              title: isFixMode ? this.i18n.t('aiFixFailed') : this.i18n.t('aiInsertionFailed'),
+              message: err instanceof Error ? err.message : this.i18n.t('unknownError'),
+              confirmLabel: this.i18n.t('ok'),
             },
           });
         }

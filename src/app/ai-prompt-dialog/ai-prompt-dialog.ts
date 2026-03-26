@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { I18nService } from '../i18n/i18n.service';
 
 export interface AiPromptDialogData {
   isFixMode: boolean;
@@ -23,25 +24,25 @@ export interface AiPromptDialogData {
     FormsModule,
   ],
   template: `
-    <h2 mat-dialog-title>{{ data.isFixMode ? 'AI Fix' : 'AI Insert' }}</h2>
+    <h2 mat-dialog-title>{{ data.isFixMode ? i18n.t('aiFixTitle') : i18n.t('aiInsertTitle') }}</h2>
     <mat-dialog-content>
       <p>
         {{
           data.isFixMode
-            ? 'Describe how you want to modify the selected code.'
-            : 'Describe the code you want to insert at the current cursor position.'
+            ? i18n.t('aiFixDescription')
+            : i18n.t('aiInsertDescription')
         }}
       </p>
       
       @if (data.isFixMode && data.selectedText) {
         <div class="selection-preview">
-          <div class="selection-header">Current Selection:</div>
+          <div class="selection-header">{{ i18n.t('currentSelection') }}</div>
           <pre><code>{{ data.selectedText }}</code></pre>
         </div>
       }
 
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>AI Prompt</mat-label>
+        <mat-label>{{ i18n.t('aiPrompt') }}</mat-label>
         <textarea
           matInput
           rows="3"
@@ -49,17 +50,17 @@ export interface AiPromptDialogData {
           (ngModelChange)="prompt.set($event)"
           [placeholder]="
             data.isFixMode
-              ? 'e.g., Rewrite this using a list comprehension'
-              : 'e.g., A function to calculate the average of a list'
+              ? i18n.t('aiFixPromptPlaceholder')
+              : i18n.t('aiInsertPromptPlaceholder')
           "
           cdkFocusInitial></textarea>
         <mat-icon matPrefix>auto_awesome</mat-icon>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-button (click)="onCancel()">{{ i18n.t('cancel') }}</button>
       <button mat-flat-button color="primary" [disabled]="!prompt().trim()" (click)="onConfirm()">
-        {{ data.isFixMode ? 'Fix Code' : 'Insert Code' }}
+        {{ data.isFixMode ? i18n.t('fixCode') : i18n.t('insertCode') }}
       </button>
     </mat-dialog-actions>
   `,
@@ -100,6 +101,7 @@ export interface AiPromptDialogData {
 export class AiPromptDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<AiPromptDialogComponent>);
   protected readonly data = inject<AiPromptDialogData>(MAT_DIALOG_DATA);
+  protected readonly i18n = inject(I18nService);
   protected readonly prompt = signal('');
 
   protected onCancel(): void {
