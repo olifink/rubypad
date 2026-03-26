@@ -1,18 +1,13 @@
 @if (!replService.isReady()) {
-  <div class="repl-loading" role="status" aria-live="polite">
-    <span>Loading Ruby…</span>
-  </div>
+<div class="repl-loading" role="status" aria-live="polite">
+  <span>{{ i18n.t('loadingRubyRepl') }}</span>
+</div>
 }
-<div #terminal class="repl-terminal" aria-label="Ruby REPL terminal"></div>
+<div #terminal class="repl-terminal" [attr.aria-label]="i18n.t('rubyReplTerminal')"></div>
 
 @if (replService.isReady()) {
-  <button
-    mat-icon-button
-    class="reset-btn"
-    aria-label="Reset REPL"
-    matTooltip="Reset REPL"
-    (click)="replService.resetRepl()"
-  >
-    <mat-icon>restart_alt</mat-icon>
-  </button>
+<button mat-icon-button class="reset-btn" [attr.aria-label]="i18n.t('resetRepl')" [matTooltip]="i18n.t('resetRepl')"
+  (click)="replService.resetRepl()">
+  <mat-icon>restart_alt</mat-icon>
+</button>
 }

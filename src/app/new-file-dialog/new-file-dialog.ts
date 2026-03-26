@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { AiService } from '../ai/ai.service';
+import { I18nService } from '../i18n/i18n.service';
 
 export interface NewFileDialogData {
   title: string;
@@ -31,23 +32,23 @@ export interface NewFileDialogData {
       @if (aiService.hasApiKey()) {
         <div class="ai-section">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>AI Prompt (optional)</mat-label>
+            <mat-label>{{ i18n.t('aiPromptOptional') }}</mat-label>
             <textarea
               matInput
               rows="3"
               [ngModel]="prompt()"
               (ngModelChange)="prompt.set($event)"
-              placeholder="e.g., Generate a simple web server using MicroPython sockets"></textarea>
+              [placeholder]="i18n.t('newFilePromptPlaceholder')"></textarea>
             <mat-icon matPrefix>auto_awesome</mat-icon>
-            <mat-hint>Leave empty to start with a blank file</mat-hint>
+            <mat-hint>{{ i18n.t('leaveEmptyForBlank') }}</mat-hint>
           </mat-form-field>
         </div>
       }
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-button (click)="onCancel()">{{ i18n.t('cancel') }}</button>
       <button mat-flat-button color="primary" (click)="onConfirm()">
-        {{ aiService.hasApiKey() && prompt().trim() ? 'Generate and Create' : 'Create Blank' }}
+        {{ aiService.hasApiKey() && prompt().trim() ? i18n.t('generateAndCreate') : i18n.t('createBlank') }}
       </button>
     </mat-dialog-actions>
   `,
@@ -69,6 +70,7 @@ export class NewFileDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<NewFileDialogComponent>);
   protected readonly data = inject<NewFileDialogData>(MAT_DIALOG_DATA);
   protected readonly aiService = inject(AiService);
+  protected readonly i18n = inject(I18nService);
   protected readonly prompt = signal('');
 
   protected onCancel(): void {

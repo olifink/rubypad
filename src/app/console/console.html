@@ -1,21 +1,16 @@
-<div #output class="console-output" role="log" aria-label="Console output">
+<div #output class="console-output" role="log" [attr.aria-label]="i18n.t('consoleOutput')">
   @if (lines().length === 0) {
-    <p class="console-placeholder">Run your code to see output here.</p>
+  <p class="console-placeholder">{{ i18n.t('runCodeToSeeOutput') }}</p>
   } @else {
-    @for (line of lines(); track $index) {
-      <div class="console-line" [class.console-line--error]="line.isError">{{ line.text }}</div>
-    }
+  @for (line of lines(); track $index) {
+  <div class="console-line" [class.console-line--error]="line.isError">{{ line.text }}</div>
+  }
   }
 </div>
 
 @if (lines().length > 0) {
-  <button
-    mat-icon-button
-    class="clear-btn"
-    aria-label="Clear output"
-    matTooltip="Clear output"
-    (click)="clear.emit()"
-  >
-    <mat-icon>close</mat-icon>
-  </button>
+<button mat-icon-button class="clear-btn" [attr.aria-label]="i18n.t('clearOutput')" [matTooltip]="i18n.t('clearOutput')"
+  (click)="clear.emit()">
+  <mat-icon>close</mat-icon>
+</button>
 }

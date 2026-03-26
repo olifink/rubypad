@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ShareService } from './share.service';
 import { toDataURL } from 'qrcode';
+import { I18nService } from '../i18n/i18n.service';
 
 export interface ShareDialogData {
   code: string;
@@ -80,13 +81,13 @@ export interface ShareDialogData {
     }
   `,
   template: `
-    <h2 mat-dialog-title>Share</h2>
+    <h2 mat-dialog-title>{{ i18n.t('shareDialogTitle') }}</h2>
 
     <mat-dialog-content>
       @if (packages.length > 0) {
         <p class="packages-note">
           <mat-icon aria-hidden="true">inventory_2</mat-icon>
-          {{ packages.length === 1 ? 'Includes package:' : 'Includes packages:' }}
+          {{ packages.length === 1 ? i18n.t('includesPackage') : i18n.t('includesPackages') }}
           <strong>{{ packages.join(', ') }}</strong>
         </p>
       }
@@ -98,35 +99,36 @@ export interface ShareDialogData {
             class="share-url-input"
             [value]="shareUrl"
             readonly
-            aria-label="Shareable URL"
+            [attr.aria-label]="i18n.t('shareableUrl')"
             (focus)="onUrlFocus($event)"
           />
         </mat-form-field>
         <button
           mat-stroked-button
           (click)="copyUrl()"
-          [attr.aria-label]="copied() ? 'Copied' : 'Copy link'">
+          [attr.aria-label]="copied() ? i18n.t('copied') : i18n.t('copyLink')">
           <mat-icon>{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
-          {{ copied() ? 'Copied!' : 'Copy' }}
+          {{ copied() ? i18n.t('copiedWithBang') : i18n.t('copy') }}
         </button>
       </div>
 
       @if (qrDataUrl()) {
         <div class="qr-section">
-          <img class="qr-img" [src]="qrDataUrl()" alt="QR code for shareable URL" />
-          <p class="qr-caption">Scan to open on another device</p>
+          <img class="qr-img" [src]="qrDataUrl()" [alt]="i18n.t('qrCodeAlt')" />
+          <p class="qr-caption">{{ i18n.t('scanToOpenOnAnotherDevice') }}</p>
         </div>
       }
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Close</button>
+      <button mat-button mat-dialog-close>{{ i18n.t('close') }}</button>
     </mat-dialog-actions>
   `,
 })
 export class ShareDialogComponent implements OnInit {
   private readonly data = inject<ShareDialogData>(MAT_DIALOG_DATA);
   private readonly shareService = inject(ShareService);
+  protected readonly i18n = inject(I18nService);
 
   protected readonly shareUrl = this.shareService.buildShareUrl(this.data.code);
   protected readonly packages: string[] = [];

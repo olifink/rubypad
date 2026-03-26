@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReplService } from './repl.service';
+import { I18nService } from '../i18n/i18n.service';
 
 @Component({
   selector: 'app-repl',
@@ -26,6 +27,7 @@ export class ReplComponent implements AfterViewInit, OnDestroy {
   readonly isDark = input(false);
 
   protected readonly replService = inject(ReplService);
+  protected readonly i18n = inject(I18nService);
 
   private readonly terminalRef = viewChild.required<ElementRef<HTMLElement>>('terminal');
   private started = false;

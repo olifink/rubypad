@@ -1,8 +1,18 @@
-import { Component, ChangeDetectionStrategy, ElementRef, effect, input, output, viewChild } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ElementRef,
+  effect,
+  inject,
+  input,
+  output,
+  viewChild,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { OutputLine } from '../runner/runner.service';
+import { I18nService } from '../i18n/i18n.service';
 
 @Component({
   selector: 'app-console',
@@ -15,6 +25,7 @@ import type { OutputLine } from '../runner/runner.service';
 export class ConsoleComponent {
   readonly lines = input<OutputLine[]>([]);
   readonly clear = output<void>();
+  protected readonly i18n = inject(I18nService);
 
   private readonly outputEl = viewChild<ElementRef<HTMLElement>>('output');
 

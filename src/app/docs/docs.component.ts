@@ -8,6 +8,7 @@ import { DocumentationService } from './docs.service';
 import { EditorContextService } from './editor-context.service';
 import type { CursorInfo } from '../editor/editor';
 import { MarkdownComponent } from '../markdown/markdown.component';
+import { I18nService } from '../i18n/i18n.service';
 
 @Component({
   selector: 'app-docs',
@@ -21,6 +22,7 @@ export class DocumentationComponent {
 
   protected readonly docsService = inject(DocumentationService);
   private readonly editorContext = inject(EditorContextService);
+  protected readonly i18n = inject(I18nService);
 
   private readonly debouncedCursor = toSignal(
     toObservable(this.cursorInfo).pipe(debounceTime(300)),
