@@ -302,10 +302,14 @@ export class I18nService {
     private loadLanguage(): Language {
         try {
             const value = localStorage.getItem(STORAGE_KEY);
-            return value === 'jp' ? 'jp' : 'en';
+            if (value === 'en' || value === 'jp') {
+                return value;
+            }
         } catch {
-            return 'en';
+            // localStorage may be unavailable.
         }
+
+        return this.getBrowserLanguage();
     }
 
     private persistLanguage(language: Language): void {
@@ -314,5 +318,17 @@ export class I18nService {
         } catch {
             // localStorage may be unavailable.
         }
+    }
+
+    private getBrowserLanguage(): Language {
+        const preferredLanguages = globalThis.navigator?.languages ?? [globalThis.navigator?.language];
+
+        for (const language of preferredLanguages) {
+            if (language?.toLowerCase().startsWith('ja')) {
+                return 'jp';
+            }
+        }
+
+        return 'en';
     }
 }
