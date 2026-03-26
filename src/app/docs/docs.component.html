@@ -15,7 +15,7 @@
   </p>
   } @else {
   <p class="docs-hint">{{ i18n.t('moveCursorForDocs') }}</p>
-  <app-markdown src="assets/cheat-sheet.md" />
+  <app-markdown [src]="cheatsheetSrc()" />
   }
 </div>
 

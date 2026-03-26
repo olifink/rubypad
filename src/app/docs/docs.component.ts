@@ -42,6 +42,12 @@ export class DocumentationComponent {
 
   protected readonly showCheatSheet = signal(false);
 
+  protected readonly cheatsheetSrc = computed(() => {
+    return this.i18n.language() === 'jp'
+      ? 'assets/cheat-sheet-jp.md'
+      : 'assets/cheat-sheet-en.md';
+  });
+
   constructor() {
     // Auto-show symbol docs as soon as a doc entry becomes available.
     effect(() => {
